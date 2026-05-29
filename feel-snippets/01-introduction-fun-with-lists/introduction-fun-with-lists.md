@@ -1,10 +1,15 @@
 # Introduction – Fun With Lists
-![FEEP Introduction Slide 1](./1.png)
-![FEEP Introduction Slide 2](./2.png)
-![FEEP Introduction Slide 3](./3.png)
-![FEEP Introduction Slide 4](./4.png)
-![FEEP Introduction Slide 5](./5.png)
-![FEEP Introduction Slide 6](./6.png)
+<div>
+<img src="./1.png" alt="FEEP Introduction Slide 1" width="300">
+<img src="./2.png" alt="FEEP Introduction Slide 2" width="300">
+<img src="./3.png" alt="FEEP Introduction Slide 3" width="300">
+</div>
+</br>
+<div>
+<img src="./4.png" alt="FEEP Introduction Slide 4" width="300">
+<img src="./5.png" alt="FEEP Introduction Slide 5" width="300">
+<img src="./6.png" alt="FEEP Introduction Slide 6" width="300">
+</div>
 
 ## Explanations
 Let's take a closer look at this problem!
