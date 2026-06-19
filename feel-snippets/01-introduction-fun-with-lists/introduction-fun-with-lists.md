@@ -19,28 +19,28 @@ A FEEL expression is always evaluated as part of an `execution context`, e.g. th
 In FEEL the following structure is called `context object`:
 ```json
 {
-    "animal": "snake",
-    "mood": "cunning"
+    "type": "snake",
+    "mood": "depressed"
 }
 ```
 
 Our `execution context` looks like this:
-```json
+```jsonc
 {
     "jungle": [
         {
             "type": "snake",
-            "mood": "cunning"
-            ...
+            "mood": "depressed"
+            //...
         },
         {
             "type": "parrot",
             "mood": "grumpy"
-            ...
-        },
-        ...
-    ],
-    ...
+            //...
+        }
+        //...
+    ]
+    //...
 }
 ```
 
@@ -48,7 +48,7 @@ Each `context object` can have additional fields. The `jungle` will contain more
 
 ### The Issue
 Now, if we go back to the problematic FEEL expression:
-```apacheconf   
+```js   
      some parrot
        in jungle
 satisfies parrot.mood = "grumpy"
@@ -63,7 +63,7 @@ As we can see from the `execution context`, not each animal in the `jungle` is a
 Let's look at some solutions!
 
 By not using `parrot` as the `iterator variable`, but instead using `animal`, we can find the following solution:
-```apacheconf                  
+```js                  
      some animal
        in jungle
 satisfies animal.type = "parrot" and animal.mood = "grumpy"
@@ -73,7 +73,7 @@ An additional check for the `type` is necessary. We use logical conjunction by u
 While we lose the focus on the parrot as the `iterator variable`, the expression that is applied to each item in the list is concise and easy to understand.
 
 We can keep the parrot as the `iterator variable` by ensuring that the list we iterate over only contains parrots.
-```apacheconf                  
+```js                
      some parrot
        in jungle[type = "parrot"]
 satisfies parrot.mood = "grumpy"
@@ -89,7 +89,16 @@ any(for animal in jungle return animal.type = "parrot" and animal.mood = "grumpy
 any(for parrot in jungle[type = "parrot"] return parrot.mood = "grumpy")
 ```
 Or:
-```apacheconf
+```js
 count(jungle[type = "parrot" and mood = "grumpy"]) > 0
 ```
 We can take a closer look at these alternatives in a future post.
+
+## Try It Yourself
+You can jump directly into the new Scala FEEL Playground with these links:
+
+* [Some animal with unfiltered list](https://feel-playground.camunda.com/playground/index.html?expression-type=expression&expression=ICAgICBzb21lIGFuaW1hbAogICAgICAgaW4ganVuZ2xlCnNhdGlzZmllcyBhbmltYWwudHlwZSA9ICJwYXJyb3QiIGFuZCBhbmltYWwubW9vZCA9ICJncnVtcHki&context=ewogICJqdW5nbGUiOiBbCiAgICB7CiAgICAgICJ0eXBlIjogInNuYWtlIiwKICAgICAgIm1vb2QiOiAiZGVwcmVzc2VkIgogICAgfSwKICAgIHsKICAgICAgInR5cGUiOiAicGFycm90IiwKICAgICAgIm1vb2QiOiAiZ3J1bXB5IgogICAgfQogIF0KfQ%3D%3D)
+* [Some parrot with filtered list](https://feel-playground.camunda.com/playground/index.html?expression-type=expression&expression=ICAgICBzb21lIHBhcnJvdAogICAgICAgaW4ganVuZ2xlW3R5cGUgPSAicGFycm90Il0Kc2F0aXNmaWVzIHBhcnJvdC5tb29kID0gImdydW1weSI%3D&context=ewogICJqdW5nbGUiOiBbCiAgICB7CiAgICAgICJ0eXBlIjogInNuYWtlIiwKICAgICAgIm1vb2QiOiAiZGVwcmVzc2VkIgogICAgfSwKICAgIHsKICAgICAgInR5cGUiOiAicGFycm90IiwKICAgICAgIm1vb2QiOiAiZ3J1bXB5IgogICAgfQogIF0KfQ%3D%3D)
+* [Any animal](https://feel-playground.camunda.com/playground/index.html?expression-type=expression&expression=YW55KGZvciBhbmltYWwgaW4ganVuZ2xlIHJldHVybiBhbmltYWwudHlwZSA9ICJwYXJyb3QiIGFuZCBhbmltYWwubW9vZCA9ICJncnVtcHkiKQ%3D%3D&context=ewogICJqdW5nbGUiOiBbCiAgICB7CiAgICAgICJ0eXBlIjogInNuYWtlIiwKICAgICAgIm1vb2QiOiAiZGVwcmVzc2VkIgogICAgfSwKICAgIHsKICAgICAgInR5cGUiOiAicGFycm90IiwKICAgICAgIm1vb2QiOiAiZ3J1bXB5IgogICAgfQogIF0KfQ%3D%3D)
+* [Any parrot](https://feel-playground.camunda.com/playground/index.html?expression-type=expression&expression=YW55KGZvciBwYXJyb3QgaW4ganVuZ2xlW3R5cGUgPSAicGFycm90Il0gcmV0dXJuIHBhcnJvdC5tb29kID0gImdydW1weSIp&context=ewogICJqdW5nbGUiOiBbCiAgICB7CiAgICAgICJ0eXBlIjogInNuYWtlIiwKICAgICAgIm1vb2QiOiAiZGVwcmVzc2VkIgogICAgfSwKICAgIHsKICAgICAgInR5cGUiOiAicGFycm90IiwKICAgICAgIm1vb2QiOiAiZ3J1bXB5IgogICAgfQogIF0KfQ%3D%3D)
+* [Count filtered list](https://feel-playground.camunda.com/playground/index.html?expression-type=expression&expression=Y291bnQoanVuZ2xlW3R5cGUgPSAicGFycm90IiBhbmQgbW9vZCA9ICJncnVtcHkiXSkgPiAw&context=ewogICJqdW5nbGUiOiBbCiAgICB7CiAgICAgICJ0eXBlIjogInNuYWtlIiwKICAgICAgIm1vb2QiOiAiZGVwcmVzc2VkIgogICAgfSwKICAgIHsKICAgICAgInR5cGUiOiAicGFycm90IiwKICAgICAgIm1vb2QiOiAiZ3J1bXB5IgogICAgfQogIF0KfQ%3D%3D)
