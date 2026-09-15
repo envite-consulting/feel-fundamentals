@@ -7,11 +7,13 @@ While the keys of a `context object` are always strings, the values can be anyth
 
 While it is possible to omit the double quotes around the keys, I strongly suggest to always add them explicitely.
 
-```js
+```
 {
     "writeFullName": function(personalData) personalData.firstName + " " + personalData.lastName,
     "result": string join(
-        for personalData in guestList return writeFullName(personalData),
+        for personalData 
+        in guestList 
+        return writeFullName(personalData),
         ",\n"
     )
 }.result
@@ -48,10 +50,31 @@ The `execution context` is a JSON object. Variables can be directly accessed via
 ## Iterator Variable
 As in many other languages, an `iterator variable` is defined in FEEL when looping over multiple items in a list. This `iterator variable` is only available in the scope of the for loop.
 
-```js                  
-     some animal
-       in jungle
-satisfies animal.type = "parrot" and animal.mood = "grumpy"
+```                 
+some animal
+in jungle
+satisfies 
+  animal.type = "parrot" 
+  and 
+  animal.mood = "grumpy"
 ```
 
 In this example, `animal` is a the `iterator variable` and local to the for loop.
+
+## Unary Test
+There are two modes in FEEL: expression and unary test. 
+
+The expression uses the `execution context` as input variables and has any data type as a result
+
+A unary test uses an implicit input variable, as well as the `execution context`. The result is a boolean. The implicit input variable is tested against a provided unary test.
+
+Example: 
+* implicit input: x (has value 5 during runtime)
+* unary test: > 3
+* result during runtime: true
+
+You can use functions in unary tests. In that case, the implicit input can be specified with `?`: `list contains(?, 3)`. In this case, the implicit input is a list. And it is tested to contain the value 3.
+
+On the other hand, you can also use unary tests in expressions by using the keyword `in`: someVariable in > 3. Here someVariable becomes the (not so) implicit input for the unary test.
+
+I like to use unary tests for null checks. See FEEL snippet no. 2!

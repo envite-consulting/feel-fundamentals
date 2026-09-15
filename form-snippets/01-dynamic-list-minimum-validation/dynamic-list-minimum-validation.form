@@ -1,0 +1,78 @@
+{
+  "components": [
+    {
+      "label": "Order at least one item of clothes",
+      "components": [
+        {
+          "text": "=this.description",
+          "type": "text",
+          "layout": {
+            "row": "Row_05l7765",
+            "columns": null
+          },
+          "id": "Field_0cuzrht"
+        },
+        {
+          "computeOn": "change",
+          "type": "expression",
+          "layout": {
+            "row": "Row_05l7765",
+            "columns": null
+          },
+          "id": "Field_14yewpj",
+          "key": "description",
+          "expression": "=this.description"
+        },
+        {
+          "label": "Number of items to be ordered",
+          "type": "number",
+          "layout": {
+            "row": "Row_1t2a8bb",
+            "columns": null
+          },
+          "id": "Field_135xn09",
+          "key": "numberToBeOrdered",
+          "defaultValue": 1,
+          "decimalDigits": 0,
+          "increment": "1",
+          "validate": {
+            "required": true,
+            "max": "10",
+            "min": "=if sum(merchClothes.numberToBeOrdered) = 0 \nthen 1 \nelse 0"
+          }
+        },
+        {
+          "type": "separator",
+          "layout": {
+            "row": "Row_03lld5x",
+            "columns": null
+          },
+          "id": "Field_0lr9c86",
+          "conditional": {
+            "hide": "=merchClothes[-1].description = this.description"
+          }
+        }
+      ],
+      "showOutline": true,
+      "isRepeating": true,
+      "allowAddRemove": false,
+      "defaultRepetitions": 1,
+      "type": "dynamiclist",
+      "layout": {
+        "row": "Row_09yfsyz",
+        "columns": null
+      },
+      "id": "Field_0z71s6z",
+      "path": "merchClothes"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0kyyizc",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.47.0"
+  },
+  "schemaVersion": 19
+}
