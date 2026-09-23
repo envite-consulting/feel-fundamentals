@@ -1,0 +1,111 @@
+{
+  "components": [
+    {
+      "label": "Select one to manipulate",
+      "type": "radio",
+      "layout": {
+        "row": "Row_1ug159h",
+        "columns": null
+      },
+      "id": "Field_0jprthb",
+      "key": "selection",
+      "valuesExpression": "=for item\nin manipulateOneCopy\nreturn \n  {\n    \"label\": \"UUID: \" + item.uuid,\n    \"value\": item.uuid\n  }"
+    },
+    {
+      "label": "Now manipulating {{selection}}",
+      "components": [
+        {
+          "text": "UUID: {{this.uuid}}",
+          "type": "text",
+          "layout": {
+            "row": "Row_1fn6kzm",
+            "columns": null
+          },
+          "id": "Field_0tdeyw3",
+          "conditional": {
+            "hide": "=selection != this.uuid"
+          }
+        },
+        {
+          "label": "Text",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_02yc3od",
+            "columns": null
+          },
+          "id": "Field_1sp9xco",
+          "key": "text",
+          "conditional": {
+            "hide": "=selection != this.uuid"
+          }
+        },
+        {
+          "computeOn": "change",
+          "type": "expression",
+          "layout": {
+            "row": "Row_02yc3od",
+            "columns": null
+          },
+          "id": "Field_0x2qf6t",
+          "key": "uuid",
+          "expression": "=this.uuid",
+          "conditional": {
+            "hide": "=selection != this.uuid"
+          }
+        }
+      ],
+      "showOutline": true,
+      "isRepeating": true,
+      "allowAddRemove": false,
+      "defaultRepetitions": 1,
+      "type": "dynamiclist",
+      "layout": {
+        "row": "Row_0oy5pjw",
+        "columns": null
+      },
+      "id": "Field_1nu3zd2",
+      "path": "manipulateOne"
+    },
+    {
+      "type": "table",
+      "layout": {
+        "row": "Row_0ib0myk",
+        "columns": null
+      },
+      "label": "Runtime data",
+      "rowCount": 10,
+      "columns": [
+        {
+          "label": "UUID",
+          "key": "uuid"
+        },
+        {
+          "label": "Text",
+          "key": "text"
+        }
+      ],
+      "id": "Field_091v5mw",
+      "dataSource": "=for item\nin manipulateOneCopy\nreturn\n  if selection != null and selection = item.uuid\n  then manipulateOne[uuid = selection][1]\n  else item"
+    },
+    {
+      "computeOn": "change",
+      "type": "expression",
+      "layout": {
+        "row": "Row_1jpgwuw",
+        "columns": null
+      },
+      "id": "Field_0gebhb5",
+      "key": "outputData",
+      "expression": "=for item\nin manipulateOneCopy\nreturn\n  if selection != null and selection = item.uuid\n  then manipulateOne[uuid = selection][1]\n  else item"
+    }
+  ],
+  "type": "default",
+  "id": "Form_077xawb",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.47.0"
+  },
+  "schemaVersion": 19
+}
