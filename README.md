@@ -1,4 +1,4 @@
-# feel-fundamentals
+# FEEL Fundamentals
 A centralized resource for FEEL (Friendly Enough Expression Language) fundamentals, focused on Camunda 8. Contains markdown explanations, practical snippets, and examples for BPMN, DMN, and forms. Ideal for learning, reference, and collaboration.
 
 # whoami
@@ -10,3 +10,13 @@ While there can also be multiple solutions in FEEL for a specific problem, it is
 Call chain or multi-line context? Probably multi-line context. 
 
 Creating good FEEL expression is an art. And I, or rather FEEP, is here to teach you! :)
+
+# whoisFEEP
+FEEP is the friendly-enough educational parrot!
+
+<img src="./feel-snippets/01-introduction-fun-with-lists/1.png" alt="FEEP Introduction Slide 1" width="300">
+
+FEEP might be a bit grumpy at times, but he shares my passion for FEEL! <3
+
+# How To
+Navigate to the subfolders, like [feel-snippets](./feel-snippets) and [form-snippets](./form-snippets), to find various useful tips and tricks about how to apply FEEL in your project.
