@@ -19,4 +19,4 @@ FEEP is the friendly-enough educational parrot!
 FEEP might be a bit grumpy at times, but he shares my passion for FEEL! <3
 
 # How To
-Navigate to the subfolders, like [feel-snippets](./feel-snippets) and [form-snippets](./form-snippets), to find various useful tips and tricks about how to apply FEEL in your project.
+Navigate to the subfolders, like [feel-snippets](./feel-snippets), [form-snippets](./form-snippets) and [bpmn-snippets](./bpmn-snippets/), to find various useful tips and tricks about how to apply FEEL in your project.
