@@ -1,0 +1,112 @@
+{
+  "components": [
+    {
+      "label": "First letter",
+      "type": "select",
+      "layout": {
+        "row": "Row_0dwrfcu",
+        "columns": null
+      },
+      "id": "Field_13h4giw",
+      "key": "first",
+      "valuesExpression": "=firstOptions"
+    },
+    {
+      "label": "Second letter",
+      "type": "select",
+      "layout": {
+        "row": "Row_0dwrfcu",
+        "columns": null
+      },
+      "id": "Field_1w4clxm",
+      "key": "second",
+      "valuesExpression": "=data.secondOptions",
+      "readonly": "=data.oneSecond != null"
+    },
+    {
+      "label": "Third letter",
+      "type": "select",
+      "layout": {
+        "row": "Row_0dwrfcu",
+        "columns": null
+      },
+      "id": "Field_15xabfg",
+      "key": "third",
+      "valuesExpression": "=data.thirdOptions",
+      "readonly": "=data.oneThird != null"
+    },
+    {
+      "label": "Fourth letter",
+      "type": "select",
+      "layout": {
+        "row": "Row_0dwrfcu",
+        "columns": null
+      },
+      "id": "Field_05133ze",
+      "key": "fourth",
+      "valuesExpression": "=data.fourthOptions",
+      "readonly": "=data.oneFourth != null"
+    },
+    {
+      "computeOn": "change",
+      "type": "expression",
+      "layout": {
+        "row": "Row_0wxiv6y",
+        "columns": null
+      },
+      "id": "Field_1jvu6zc",
+      "key": "data",
+      "expression": "={\n  // functions\n  \"createEntries\": function(nameList, position, letter)\n    nameList[substring(item, position, 1) = letter],\n  \"createOptions\": function(nameList, position) \n    sort(\n      distinct values(\n        for name \n        in nameList \n        return substring(name, position, 1)\n      ), \n      function(a, b) a < b\n    ),\n  \"firstEntryOrNull\": function(someList) if count(someList) = 1 then someList[1] else null,\n\n  // data\n  \"secondEntries\": createEntries(names, 1, first),\n  \"secondOptions\": createOptions(secondEntries, 2),\n  \"oneSecond\": firstEntryOrNull(secondOptions),\n  \"thirdEntries\": \ncreateEntries(secondEntries, 2, if oneSecond != null then oneSecond else second),\n  \"thirdOptions\": createOptions(thirdEntries, 3),\n  \"oneThird\": firstEntryOrNull(thirdOptions),\n  \"fourthEntries\": createEntries(thirdEntries, 3, if oneThird != null then oneThird else third),\n  \"fourthOptions\": createOptions(fourthEntries, 4),\n  \"oneFourth\": firstEntryOrNull(fourthOptions)\n}"
+    },
+    {
+      "text": "={\n  \"result\": first +\n    (if data.oneSecond != null then data.oneSecond else second) +\n    (if data.oneThird != null then data.oneThird else third) +\n    (if data.oneFourth != null then data.oneFourth else fourth),\n  \"string\": \n    \"# Result: \" +\n    if result != null then result else \"not unique yet\"\n}.string",
+      "type": "text",
+      "layout": {
+        "row": "Row_18oi0tj",
+        "columns": null
+      },
+      "id": "Field_0kmfrf8"
+    },
+    {
+      "text": "=\"## Remaining Options:\\n\" +\nstring join(\n  if fourth != null or data.oneFourth != null \n  then [\"none\"]\n  else if not(count(data.fourthEntries) in (null, 0))\n  then data.fourthEntries\n  else if not(count(data.thirdEntries) in (null, 0))\n  then data.thirdEntries\n  else if not(count(data.secondEntries) in (null, 0))\n  then data.secondEntries\n  else names,\n  \", \"\n)\n",
+      "type": "text",
+      "layout": {
+        "row": "Row_01h2s2t",
+        "columns": null
+      },
+      "id": "Field_00pva83"
+    },
+    {
+      "computeOn": "change",
+      "type": "expression",
+      "layout": {
+        "row": "Row_0w1iji8",
+        "columns": null
+      },
+      "id": "Field_0xs7xn7",
+      "key": "expression_a1hcja",
+      "expression": "=sort(names, function(a,b) a<b)"
+    },
+    {
+      "label": "Select",
+      "type": "select",
+      "layout": {
+        "row": "Row_1nndgl9",
+        "columns": null
+      },
+      "id": "Field_1ycod8n",
+      "key": "select_nxhdd",
+      "valuesExpression": "=names",
+      "searchable": true
+    }
+  ],
+  "type": "default",
+  "id": "Form_1oj37ux",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.52.0"
+  },
+  "schemaVersion": 19
+}
